@@ -7,6 +7,7 @@ import {
 } from "@clerk/nextjs";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import { LayoutDashboard, PenBox } from "lucide-react";
 
 const Header = () => {
   return (
@@ -15,20 +16,34 @@ const Header = () => {
         <Link href="/">
           <h1 className="font-bold">FinSight</h1>
         </Link>
-        <SignedOut>
-          <SignInButton />
-          <SignUpButton>
-            <Button
-              className="font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 cursor-pointer"
-              variant={"outline"}
-            >
-              Sign Up
+        <div className="flex item-center space-x-4">
+          <SignedIn>
+            <Link href={"/dashboard"} className="text-gray-600 hover:text-blue-600 flex items-center gap-2">
+            <Button variant={"outline"}>
+              <LayoutDashboard size={18}/>
+              <span className="hidden md:inline">Dashboard</span>
             </Button>
-          </SignUpButton>
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
+            </Link>
+            <Link href={"/transaction/create"} className="flex items-center gap-2">
+            <Button>
+              <PenBox size={18}/>
+              <span className="hidden md:inline">Add Transaction</span>
+            </Button>
+            </Link>
+          </SignedIn>
+          <SignedOut>
+            <SignInButton forceRedirectUrl="/dashboard">
+              <Button variant={"outline"}>Sign In</Button>
+            </SignInButton>
+          </SignedOut>
+          <SignedIn>
+            <UserButton appearance={{
+              elements:{
+                avatarBox:"w-10 h-10"
+              }
+            }}/>
+          </SignedIn>
+        </div>
       </nav>
     </div>
   );
