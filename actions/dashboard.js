@@ -1,6 +1,7 @@
 "use server";
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
+import { revalidatePath } from "next/cache";
 
 // this function because next.js cannot handle decimals and this is to convert it back to number so serializing it 
 const serializeTransaction = (obj) => {
