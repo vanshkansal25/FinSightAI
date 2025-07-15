@@ -72,9 +72,9 @@ const TransactionTable = ({ transactions }) => {
     loading: deleteLoading,
     fn: deleteFn,
     data: deleted,
-  } = useFetch(bulkDeleteTransactions)
+  } = useFetch(bulkDeleteTransactions);
 
-  const filteredAndSortedTransactions = useMemo(()=>{
+  const filteredAndSortedTransactions = useMemo(() => {
     let result = [...transactions];
     // Apply search filter
     if (searchTerm) {
@@ -97,9 +97,9 @@ const TransactionTable = ({ transactions }) => {
       });
     }
     //Apply Sorting
-    result.sort((a,b)=>{
-        let comparison = 0
-        switch (sortConfig.field) {
+    result.sort((a, b) => {
+      let comparison = 0;
+      switch (sortConfig.field) {
         case "date":
           comparison = new Date(a.date) - new Date(b.date);
           break;
@@ -113,15 +113,9 @@ const TransactionTable = ({ transactions }) => {
           comparison = 0;
       }
       return sortConfig.direction === "asc" ? comparison : -comparison;
-    })
+    });
     return result;
-  },[
-    transactions,
-    searchTerm,
-    typeFilter,
-    recurringFilter,
-    sortConfig,
-  ]);
+  }, [transactions, searchTerm, typeFilter, recurringFilter, sortConfig]);
   const handleSort = (field) => {
     setSortConfig((current) => ({
       field,
@@ -145,28 +139,30 @@ const TransactionTable = ({ transactions }) => {
         : filteredAndSortedTransactions.map((t) => t.id)
     );
   };
-  const handleBulkDelete = async()=>{
-    if(!window.confirm(
+  const handleBulkDelete = async () => {
+    if (
+      !window.confirm(
         `Are you sure you want to delete ${selectedIds.length} transactions?`
-    )){
-        return;
+      )
+    ) {
+      return;
     }
-    deleteFn(selectedIds)
-  }
+    deleteFn(selectedIds);
+  };
   useEffect(() => {
     if (deleted && !deleteLoading) {
       toast.error("Transactions deleted successfully");
     }
   }, [deleted, deleteLoading]);
-  const handleClearFilters = ()=>{
+  const handleClearFilters = () => {
     setSearchTerm("");
     setTypeFilter("");
     setRecurringFilter("");
     setSelectedIds([]);
-  }
+  };
   return (
     <div className="space-y-4">
-        {deleteLoading && (
+      {deleteLoading && (
         <BarLoader className="mt-4" width={"100%"} color="#9333ea" />
       )}
       {/* Filters */}
@@ -183,7 +179,10 @@ const TransactionTable = ({ transactions }) => {
           />
         </div>
         <div className="flex gap-2">
-          <Select value={typeFilter} onValueChange={(value)=>setTypeFilter(value)}>
+          <Select
+            value={typeFilter}
+            onValueChange={(value) => setTypeFilter(value)}
+          >
             <SelectTrigger>
               <SelectValue placeholder="All Types" />
             </SelectTrigger>
@@ -192,7 +191,10 @@ const TransactionTable = ({ transactions }) => {
               <SelectItem value="EXPENSE">Expense</SelectItem>
             </SelectContent>
           </Select>
-          <Select value={recurringFilter} onValueChange={(value)=>setRecurringFilter(value)}>
+          <Select
+            value={recurringFilter}
+            onValueChange={(value) => setRecurringFilter(value)}
+          >
             <SelectTrigger className="w-[140px]">
               <SelectValue placeholder="All Transactions" />
             </SelectTrigger>
@@ -201,14 +203,27 @@ const TransactionTable = ({ transactions }) => {
               <SelectItem value="non-recurring">Non-recurring Only</SelectItem>
             </SelectContent>
           </Select>
-          {selectedIds.length>0 && <div className="flex items-center gap-2">
-            <Button variant="destructive" size="sm" onClick = {handleBulkDelete}>
-                <Trash className="h-4 w-4 mr-2"/>
+          {selectedIds.length > 0 && (
+            <div className="flex items-center gap-2">
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={handleBulkDelete}
+              >
+                <Trash className="h-4 w-4 mr-2" />
                 Delete Selected({selectedIds.length})
+              </Button>
+            </div>
+          )}
+          {(searchTerm || typeFilter || recurringFilter) && (
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleClearFilters}
+              title="Clear Filters"
+            >
+              <X className="h-4 w-4" />
             </Button>
-          </div> }
-          {(searchTerm||typeFilter||recurringFilter)&&(
-            <Button variant="outline" size="icon" onClick={handleClearFilters} title="Clear Filters"><X className="h-4 w-4"/></Button>
           )}
         </div>
       </div>
@@ -340,10 +355,10 @@ const TransactionTable = ({ transactions }) => {
                           <div className="text-sm">
                             <div className="font-medium">Next Date:</div>
                             <div>
-                              {format(
-                                new Date(transaction.nextReccuringDate),
-                                "PP"
-                              )}
+                              {transaction.nextReccuringDate
+                                ? format(
+                                    new Date(transaction.nextReccuringDate.replace(" ","T")),"PP")
+                                : "N/A"}
                             </div>
                           </div>
                         </TooltipContent>
