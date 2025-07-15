@@ -195,7 +195,7 @@ const TransactionTable = ({ transactions }) => {
             value={recurringFilter}
             onValueChange={(value) => setRecurringFilter(value)}
           >
-            <SelectTrigger className="w-[140px]">
+            <SelectTrigger className="w-[150px]">
               <SelectValue placeholder="All Transactions" />
             </SelectTrigger>
             <SelectContent>
@@ -355,9 +355,9 @@ const TransactionTable = ({ transactions }) => {
                           <div className="text-sm">
                             <div className="font-medium">Next Date:</div>
                             <div>
-                              {transaction.nextReccuringDate
+                              {transaction.nextRecurringDate
                                 ? format(
-                                    new Date(transaction.nextReccuringDate.replace(" ","T")),"PP")
+                                    new Date(transaction.nextRecurringDate),"PPP")
                                 : "N/A"}
                             </div>
                           </div>
