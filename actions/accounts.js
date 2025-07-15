@@ -2,7 +2,7 @@
 import { db } from "@/lib/prisma";
 import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
-const serializeTransaction = (obj) => {
+const serializeDecimal = (obj) => {
   const serialized = { ...obj };
   if (obj.balance) {
     serialized.balance = obj.balance.toNumber();
@@ -45,7 +45,7 @@ export async function updateDefaultAccount(accountId) {
     });
 
     revalidatePath("/dashboard");
-    return { success: true, data: serializeTransaction(account) };
+    return { success: true, data: serializeDecimal(account) };
   } catch (error) {
     return { success: false, error: error.message };
   }
