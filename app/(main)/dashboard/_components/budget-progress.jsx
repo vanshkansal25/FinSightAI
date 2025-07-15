@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { updateBudget } from "@/actions/budget";
 
-export function BudgetProgress({ initialBudget, currentExpenses }) {
+export default function BudgetProgress({ initialBudget, currentExpenses }) {
   const [isEditing, setIsEditing] = useState(false);
   const [newBudget, setNewBudget] = useState(
     initialBudget?.amount?.toString() || ""
@@ -127,7 +127,6 @@ export function BudgetProgress({ initialBudget, currentExpenses }) {
             <Progress
               value={percentUsed}
               extraStyles={`${
-                // add to Progress component
                 percentUsed >= 90
                   ? "bg-red-500"
                   : percentUsed >= 75

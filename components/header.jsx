@@ -8,13 +8,15 @@ import {
 import Link from "next/link";
 import { Button } from "./ui/button";
 import { LayoutDashboard, PenBox } from "lucide-react";
+import { checkUser } from "@/lib/checkUser";
 
-const Header = () => {
+const Header = async() => {
+  await checkUser();
   return (
     <div className="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b">
       <nav className="container mx-auto px-4 py-4 flex items-center justify-between">
         <Link href="/">
-          <h1 className="font-bold">FinSight</h1>
+          <h1 className="font-bold text-2xl">FinSight</h1>
         </Link>
         <div className="flex item-center space-x-4">
           <SignedIn>
