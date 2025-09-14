@@ -1,5 +1,5 @@
 import { clerkMiddleware, createRouteMatcher } from '@clerk/nextjs/server';
-import arcjet from 'arcjet';
+import arcjet, { shield, detectBot, createMiddleware } from "@arcjet/next"
 import { NextResponse } from 'next/server';
 
 const aj = arcjet({
