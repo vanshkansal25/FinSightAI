@@ -46,13 +46,13 @@ const HeroSection = () => {
         </div>
         </div>
         <div className="hero-image-wrapper mt-5 md:mt-0">
-          <div ref={imageRef} className="hero-image">
+          <div ref={imageRef} className="hero-image max-w-5xl mx-auto shadow-2xl overflow-hidden">
             <Image
-              src="/banner.png"
-              width={1280}
-              height={720}
+              src="/dashboard.png"
+              width={1080}
+              height={1080}
               alt="Dashboard Preview"
-              className="rounded-lg shadow-2xl border mx-auto"
+              className="rounded-lg object-cover mx-auto mask-b-from-40% to-70% border-2"
               priority
             />
           </div>
